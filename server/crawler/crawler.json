@@ -1,0 +1,25 @@
+{
+  "list": [
+    {
+      "id": 1,
+      "shopId": "5df6566ce5fc8a44e858c98d",
+      "productCategoryId": "5df65687e5fc8a44e858c98e",
+      "productId": "5df6569fe5fc8a44e858c990",
+      "fetchUrl": "https://www.carrefoursa.com/tr/limon-file-kg-p-30044236"
+    },
+    {
+      "id": 2,
+      "shopId": "5df6566ce5fc8a44e858c98d",
+      "productCategoryId": "5df65687e5fc8a44e858c98e",
+      "productId": "5df67c2214eb1a13482877e1",
+      "fetchUrl": "https://www.carrefoursa.com/tr/sikma-portakal-kg-p-30092100"
+    },
+    {
+      "id": 3,
+      "shopId": "5df6816174812f1d30aabe02",
+      "productCategoryId": "5df65687e5fc8a44e858c98e",
+      "productId": "5df67c2214eb1a13482877e1",
+      "fetchUrl": "https://www.migros.com.tr/portakal-kg-p-1a0a047"
+    }
+  ]
+}
