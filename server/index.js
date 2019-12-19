@@ -8,6 +8,7 @@ import resolvers from './common/resolvers';
 import models from './db/models';
 
 const PORT = process.env.PORT || 4400;
+const API_PATH = process.env.API_PATH || '/gql-api';
 
 const startServer = async () => {
   try {
@@ -25,7 +26,7 @@ const startServer = async () => {
       }
     });
 
-    server.applyMiddleware({ app, path: '/gql-api' });
+    server.applyMiddleware({ app, path: API_PATH });
 
     app.get('*', (req, res) => {
       res.send('Server ready');
