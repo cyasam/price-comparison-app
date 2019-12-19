@@ -4,10 +4,13 @@ const nodeExternals = require('webpack-node-externals');
 module.exports = {
   target: 'node',
   mode: 'production',
-  entry: './server/index.js',
+  entry: {
+    app: './server/index.js',
+    crawler: './server/crawler.js'
+  },
   output: {
     path: path.resolve(__dirname, './build'),
-    filename: 'index.js'
+    filename: '[name].js'
   },
   externals: [nodeExternals()]
 };

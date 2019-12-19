@@ -8,9 +8,9 @@
     "prod": "cross-env NODE_ENV=production webpack",
     "server:dev": "nodemon --exec babel-node server/index.js",
     "build:server": "webpack -p --config ./webpack.node.config.js",
-    "crawler": "babel-node server/crawler.js",
+    "crawler": "node build/crawler.js",
     "heroku-postbuild": "npm run build:server",
-    "start": "node build/index.js"
+    "start": "node build/app.js"
   },
   "keywords": [],
   "author": "Cagdas ISIK",
