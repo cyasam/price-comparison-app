@@ -32,6 +32,10 @@ const startServer = async () => {
 
     server.applyMiddleware({ app });
 
+    app.get('*', (req, res) => {
+      res.send('Server ready');
+    });
+
     app.listen(PORT, () => {
       console.log(`Server ready`);
     });
