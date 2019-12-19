@@ -7,8 +7,9 @@ import db from '../db';
 import crawlerConfig from './crawler';
 import { priceController } from '../db/controllers/';
 
-const getCrawlerList = dir => {
-  const listString = fs.readFileSync(dir);
+const getCrawlerList = () => {
+  const crawlerFileDir = path.join(__dirname, 'crawler.json');
+  const listString = fs.readFileSync(crawlerFileDir);
   return JSON.parse(listString);
 };
 
@@ -20,8 +21,7 @@ const getPrice = ({ shopId, html }) => {
 };
 
 const startCrawler = async () => {
-  const crawlerFileDir = path.join(__dirname, 'crawler.json');
-  const { list: crawlersList } = getCrawlerList(crawlerFileDir);
+  const { list: crawlersList } = getCrawlerList();
 
   await db.connectDB();
 
