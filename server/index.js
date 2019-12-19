@@ -1,4 +1,5 @@
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer } from 'apollo-server-express';
+import express from 'express';
 
 import db from './db';
 import typeDefs from './common/type-defs';
@@ -10,6 +11,8 @@ const PORT = process.env.PORT || 4400;
 
 const startServer = async () => {
   try {
+    const app = express();
+
     await db.connectDB();
 
     const server = new ApolloServer({
@@ -27,8 +30,10 @@ const startServer = async () => {
       }
     });
 
-    server.listen({ port: PORT }).then(({ url }) => {
-      console.log(`Server ready at ${url}`);
+    server.applyMiddleware({ app });
+
+    app.listen(PORT, () => {
+      console.log(`Server ready`);
     });
   } catch (error) {
     throw new Error(error);
