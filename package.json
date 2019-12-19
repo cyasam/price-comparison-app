@@ -7,10 +7,10 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open",
     "prod": "cross-env NODE_ENV=production webpack",
     "server:dev": "nodemon --exec babel-node server/index.js",
-    "build:server": "webpack --config ./webpack.node.config.js",
+    "build:server": "webpack -p --config ./webpack.node.config.js",
     "crawler": "babel-node server/crawler.js",
-    "start:server": "node build/index.js",
-    "start": "npm-run-all -s build:server start:server"
+    "heroku-postbuild": "npm run build:server",
+    "start": "node build/index.js"
   },
   "keywords": [],
   "author": "Cagdas ISIK",
