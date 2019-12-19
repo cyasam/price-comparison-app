@@ -18,11 +18,6 @@ const startServer = async () => {
     const server = new ApolloServer({
       typeDefs,
       resolvers,
-      introspection: true,
-      playground: true,
-      cacheControl: {
-        defaultMaxAge: 5
-      },
       context() {
         return {
           models
@@ -30,7 +25,7 @@ const startServer = async () => {
       }
     });
 
-    server.applyMiddleware({ app });
+    server.applyMiddleware({ app, path: '/gql-api' });
 
     app.get('*', (req, res) => {
       res.send('Server ready');
