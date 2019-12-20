@@ -4,7 +4,7 @@ import request from 'request';
 import cheerio from 'cheerio';
 
 import db from '../db';
-import crawlerConfig from './crawler';
+import crawlerConfig from './crawler-config';
 import { priceController } from '../db/controllers/';
 
 const getCrawlerList = () => {
@@ -50,4 +50,4 @@ const startCrawler = async () => {
   });
 };
 
-export default startCrawler;
+startCrawler();

@@ -7,7 +7,7 @@ module.exports = {
   mode: 'production',
   entry: {
     app: './server/index.js',
-    crawler: './server/crawler.js'
+    crawler: './server/crawler/index.js'
   },
   output: {
     path: path.resolve(__dirname, './build'),
