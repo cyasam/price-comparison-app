@@ -1,11 +1,14 @@
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
+import dotenv from 'dotenv';
 
 import db from './db';
 import typeDefs from './common/type-defs';
 import resolvers from './common/resolvers';
 
 import models from './db/models';
+
+dotenv.config({ silent: true });
 
 const PORT = process.env.PORT || 4400;
 const API_PATH = process.env.API_PATH || '/gql-api';

@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import request from 'request';
 import cheerio from 'cheerio';
+import dotenv from 'dotenv';
 
 import db from '../db';
 import crawlerConfig from './crawler-config';
@@ -21,6 +22,8 @@ const getPrice = ({ shopId, html }) => {
 };
 
 const startCrawler = async () => {
+  dotenv.config({ silent: true });
+
   const { list: crawlersList } = getCrawlerList();
 
   await db.connectDB();
