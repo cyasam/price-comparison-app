@@ -1,0 +1,116 @@
+body {
+  background-color: #181819;
+}
+
+// SVG Styles
+
+#svgElement {
+  width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// SVG Animation
+
+#ConeLight {
+  fill: orange !important;
+  animation: 0.6s infinite coneCycle;
+}
+
+@-webkit-keyframes coneCycle {
+  50% {
+    fill: white;
+  }
+
+  100% {
+    fill: #d62209;
+  }
+}
+
+// Crane Light Animation
+
+#CraneLight {
+  fill: white;
+  animation: 0.6s infinite coneCycle;
+}
+
+// Crane Whinch Animation
+
+#Winch {
+  transform: translateX(88px);
+  animation: 4s linear infinite winchCycle;
+  animation-direction: alternate-reverse;
+}
+
+@-webkit-keyframes winchCycle {
+  0% {
+    transform: translateX(88px);
+  }
+
+  100% {
+    transform: translateX(4px);
+  }
+}
+
+// Paint Roller Animation
+
+#PaintRoller {
+  animation: 0.7s ease infinite paintRoller;
+  transform: translateY(-1px);
+  animation-direction: alternate-reverse;
+}
+
+@-webkit-keyframes paintRoller {
+  0% {
+    transform: translateY(-7px);
+  }
+
+  100% {
+    transform: translateY(21px);
+  }
+}
+
+// Page Styles
+
+html,
+body {
+  height: 100%;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+#under-construction {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+
+  h2 {
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 3em;
+    text-align: center;
+  }
+
+  p {
+    margin-right: 40px;
+    color: #fff;
+    font-size: 1.6em;
+    text-align: center;
+  }
+
+  figure {
+    margin: 0;
+
+    svg {
+      min-width: 300px;
+      width: 40%;
+    }
+  }
+}

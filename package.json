@@ -8,9 +8,9 @@
     "prod": "cross-env NODE_ENV=production webpack -p",
     "server:dev": "nodemon --exec babel-node server/index.js",
     "server:build": "webpack -p --config ./webpack.node.config.js",
-    "heroku-postbuild": "npm run server:build",
+    "heroku-postbuild": "npm run server:build && npm run prod",
     "crawler": "node build/crawler.js",
-    "start": "node build/app.js"
+    "start": "node build/server.js"
   },
   "keywords": [],
   "author": "Cagdas ISIK",
@@ -30,6 +30,7 @@
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
+    "url-loader": "^3.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0",
@@ -44,8 +45,11 @@
     "graphql": "^14.5.8",
     "graphql-iso-date": "^3.6.1",
     "mongoose": "^5.7.14",
+    "normalize.css": "^8.0.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-inlinesvg": "^1.2.0",
+    "react-router-dom": "^5.1.2",
     "request": "^2.88.0"
   }
 }

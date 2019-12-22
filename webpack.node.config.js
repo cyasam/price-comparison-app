@@ -6,7 +6,7 @@ module.exports = {
   target: 'node',
   mode: 'production',
   entry: {
-    app: './server/index.js',
+    server: './server/index.js',
     crawler: './server/crawler/index.js'
   },
   output: {

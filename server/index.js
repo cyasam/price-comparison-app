@@ -1,6 +1,7 @@
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import dotenv from 'dotenv';
+import path from 'path';
 
 import db from './db';
 import typeDefs from './common/type-defs';
@@ -31,8 +32,10 @@ const startServer = async () => {
 
     server.applyMiddleware({ app, path: API_PATH });
 
+    app.use(express.static('build/client'));
+
     app.get('*', (req, res) => {
-      res.send('Server ready');
+      res.sendFile(path.join(__dirname, '../build/client/index.html'));
     });
 
     app.listen(PORT, () => {
