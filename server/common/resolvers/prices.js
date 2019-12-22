@@ -7,26 +7,29 @@ import {
 
 const resolvers = {
   Query: {
-    prices(_, args) {
-      return priceController.getPrices(args);
+    prices(_, args, { models }) {
+      return priceController.getPrices(args, models);
     }
   },
   Mutation: {
-    addPrice(_, args) {
-      return priceController.addPrice(args);
+    addPrice(_, args, { models }) {
+      return priceController.addPrice(args, models);
     }
   },
   Price: {
-    product({ productId }) {
-      return productController.getProduct({ productId });
+    product({ productId }, __, { models }) {
+      return productController.getProduct({ productId }, models);
     },
-    productCategory({ productCategoryId }) {
-      return productCategoryController.getProductCategory({
-        productCategoryId
-      });
+    productCategory({ productCategoryId }, __, { models }) {
+      return productCategoryController.getProductCategory(
+        {
+          productCategoryId
+        },
+        models
+      );
     },
-    shop({ shopId }) {
-      return shopController.getShop({ shopId });
+    shop({ shopId }, __, { models }) {
+      return shopController.getShop({ shopId }, models);
     }
   }
 };

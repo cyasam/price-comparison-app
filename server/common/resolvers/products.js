@@ -6,23 +6,26 @@ import {
 
 const resolvers = {
   Query: {
-    products(_, args) {
-      return productController.getProducts(args);
+    products(_, args, { models }) {
+      return productController.getProducts(args, models);
     }
   },
   Mutation: {
-    addProduct(_, args) {
-      return productController.addProduct(args);
+    addProduct(_, args, { models }) {
+      return productController.addProduct(args, models);
     }
   },
   Product: {
-    productUnit({ productUnitId }) {
-      return productUnitController.getProductUnit({ productUnitId });
+    productUnit({ productUnitId }, __, { models }) {
+      return productUnitController.getProductUnit({ productUnitId }, models);
     },
-    productCategory({ productCategoryId }) {
-      return productCategoryController.getProductCategory({
-        productCategoryId
-      });
+    productCategory({ productCategoryId }, __, { models }) {
+      return productCategoryController.getProductCategory(
+        {
+          productCategoryId
+        },
+        models
+      );
     }
   }
 };

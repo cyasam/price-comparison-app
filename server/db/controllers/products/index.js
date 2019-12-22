@@ -1,6 +1,4 @@
-import models from '../../models';
-
-const getProducts = async args => {
+const getProducts = async (args, models) => {
   const Product = models.Product;
 
   const product = await Product.find(args);
@@ -8,7 +6,7 @@ const getProducts = async args => {
   return product;
 };
 
-const getProduct = async args => {
+const getProduct = async (args, models) => {
   const Product = models.Product;
 
   const product = await Product.findById(args.productId);
@@ -16,7 +14,7 @@ const getProduct = async args => {
   return product;
 };
 
-const addProduct = async args => {
+const addProduct = async (args, models) => {
   const Product = models.Product;
   const { name } = args.input;
 

@@ -1,6 +1,4 @@
-import models from '../../models';
-
-const getPrices = async args => {
+const getPrices = async (args, models) => {
   const Price = models.Price;
 
   const price = await Price.find(args);
@@ -8,7 +6,7 @@ const getPrices = async args => {
   return price;
 };
 
-const addPrice = async args => {
+const addPrice = async (args, models) => {
   const Price = models.Price;
 
   const newPrice = new Price({

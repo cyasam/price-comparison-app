@@ -1,6 +1,4 @@
-import models from '../../models';
-
-const getProductCategory = async args => {
+const getProductCategory = async (args, models) => {
   const ProductCategory = models.ProductCategory;
 
   const productCategory = await ProductCategory.findById(
@@ -10,7 +8,7 @@ const getProductCategory = async args => {
   return productCategory;
 };
 
-const addProductCategory = async args => {
+const addProductCategory = async (args, models) => {
   const ProductCategory = models.ProductCategory;
   const { name } = args.input;
 
