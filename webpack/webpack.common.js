@@ -1,7 +1,18 @@
+const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
+let entry = ['./src/index.js'];
+if (process.env.NODE_ENV !== 'production') {
+  entry = ['webpack-hot-middleware/client', ...entry];
+}
+
 module.exports = {
-  entry: './src/index.js',
+  entry,
+  output: {
+    path: path.resolve(__dirname, '../build/client'),
+    filename: '[name].bundle.js',
+    publicPath: '/'
+  },
   module: {
     rules: [
       {
