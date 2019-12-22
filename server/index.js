@@ -2,11 +2,6 @@ import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-
-import webpackConfig from '../webpack.config';
 
 import db from './db';
 import typeDefs from './common/type-defs';
@@ -38,13 +33,18 @@ const startServer = async () => {
     server.applyMiddleware({ app, path: API_PATH });
 
     if (process.env.NODE_ENV !== 'production') {
-      const compiler = webpack(webpackConfig);
+      const webpack = await import('webpack');
+      const webpackDevMiddleware = await import('webpack-dev-middleware');
+      const webpackHotMiddleware = await import('webpack-hot-middleware');
+      const webpackConfig = await import('../webpack.config');
+
+      const compiler = webpack.default(webpackConfig.default);
       app.use(
-        webpackDevMiddleware(compiler, {
+        webpackDevMiddleware.default(compiler, {
           publicPath: webpackConfig.output.publicPath
         })
       );
-      app.use(webpackHotMiddleware(compiler));
+      app.use(webpackHotMiddleware.default(compiler));
     }
 
     app.use(express.static('build/client'));

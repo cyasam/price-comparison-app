@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "server:dev": "cross-env NODE_ENV=development nodemon --exec babel-node server/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node server/index.js",
     "heroku-postbuild": "cross-env NODE_ENV=production \"webpack -p --config ./webpack.node.config.js && webpack -p\"",
     "crawler": "node build/crawler.js",
     "start": "node build/server.js"
