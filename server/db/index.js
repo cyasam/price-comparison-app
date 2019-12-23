@@ -15,7 +15,8 @@ export default {
       return await mongoose.connect(MONGO_CONNECTION_STRING, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: false
+        useFindAndModify: false,
+        useCreateIndex: true
       });
     } catch (err) {
       throw new Error(err);

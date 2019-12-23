@@ -14,7 +14,7 @@ const addProductCategory = async (args, models) => {
 
   const existingProductCategory = await ProductCategory.findOne({ name });
   if (existingProductCategory) {
-    throw new Error(`${name} product category exist`);
+    throw new Error(`${name} product category exists`);
   }
 
   const newProductCategory = new ProductCategory({ name });

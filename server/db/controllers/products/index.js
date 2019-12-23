@@ -20,7 +20,7 @@ const addProduct = async (args, models) => {
 
   const existingProduct = await Product.findOne({ name });
   if (existingProduct) {
-    throw new Error(`${name} product exist`);
+    throw new Error(`${name} product exists`);
   }
 
   const newProduct = new Product(args.input);

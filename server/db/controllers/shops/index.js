@@ -12,7 +12,7 @@ const addShop = async (args, models) => {
 
   const existingShop = await Shop.findOne({ name });
   if (existingShop) {
-    throw new Error(`${name} shop exist`);
+    throw new Error(`${name} shop exists`);
   }
 
   const newShop = new Shop({ name });

@@ -61,6 +61,30 @@ const typeDefs = gql`
     name: String!
   }
 
+  # Users
+
+  type User {
+    id: ID!
+    name: String!
+    email: String!
+  }
+
+  type AuthPayload {
+    token: String
+    user: User
+  }
+
+  input signIn {
+    email: String!
+    password: String!
+  }
+
+  input signUp {
+    email: String!
+    password: String!
+    name: String!
+  }
+
   # Queries and Mutations
   type Query {
     prices: [Price]!
@@ -73,6 +97,8 @@ const typeDefs = gql`
     addProductUnit(input: newProductUnit!): ProductUnit!
     addProductCategory(input: newProductCategory!): ProductCategory!
     addShop(input: newShop!): Shop!
+    signIn(input: signIn!): AuthPayload!
+    signUp(input: signUp!): AuthPayload!
   }
 `;
 

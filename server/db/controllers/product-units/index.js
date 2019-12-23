@@ -12,7 +12,7 @@ const addProductUnit = async (args, models) => {
 
   const existingProductUnit = await ProductUnit.findOne({ name });
   if (existingProductUnit) {
-    throw new Error(`${name} product unit exist`);
+    throw new Error(`${name} product unit exists`);
   }
 
   const newProductUnit = new ProductUnit({ name });
