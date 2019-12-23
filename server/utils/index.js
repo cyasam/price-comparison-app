@@ -1,0 +1,59 @@
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+
+const authenticated = next => (_, args, context) => {
+  if (!context.user) {
+    throw new Error('Not Authenticated');
+  }
+
+  return next(_, args, context);
+};
+
+const encryptPassword = async password => {
+  try {
+    const saltRounds = 10;
+    return await bcrypt.hash(password, saltRounds);
+  } catch (err) {
+    throw new Error('Internal Error');
+  }
+};
+
+const comparePassword = async (password, realPassword) => {
+  try {
+    return await bcrypt.compare(password, realPassword);
+  } catch (err) {
+    throw new Error('Internal Error');
+  }
+};
+
+const createToken = user => {
+  try {
+    return jwt.sign(
+      {
+        sub: user.id,
+        name: user.name,
+        email: user.email
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: process.env.EXPIRES_IN }
+    );
+  } catch (err) {
+    throw new Error('Internal Error');
+  }
+};
+
+const getUser = token => {
+  try {
+    return token ? jwt.verify(token, process.env.SECRET_KEY) : null;
+  } catch (err) {
+    return null;
+  }
+};
+
+export default {
+  authenticated,
+  encryptPassword,
+  comparePassword,
+  createToken,
+  getUser
+};

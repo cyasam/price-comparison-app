@@ -1,21 +1,36 @@
-import bcrypt from 'bcrypt';
-
-const generatePassword = async password => {
-  try {
-    const saltRounds = 10;
-    return await bcrypt.hash(password, saltRounds);
-  } catch (err) {
-    throw new Error(err.message);
-  }
-};
-
-const createToken = () => {
-  return 'sdfgsdgdf';
-};
+import utils from '../../../utils';
 
 const signIn = async (args, models) => {
   const User = models.User;
-  return await User.findOne({ args });
+
+  const { email, password } = args.input;
+  const existingUser = await User.findOne({ email });
+
+  const errorMessage = 'Wrong email and password';
+
+  if (!existingUser) {
+    throw new Error(errorMessage);
+  }
+
+  const isPasswordSame = await utils.comparePassword(
+    password,
+    existingUser.password
+  );
+
+  if (!isPasswordSame) {
+    throw new Error(errorMessage);
+  }
+
+  const token = utils.createToken(existingUser);
+
+  return {
+    token,
+    user: {
+      id: existingUser._id,
+      email: existingUser.email,
+      name: existingUser.name
+    }
+  };
 };
 
 const signUp = async (args, models) => {
@@ -27,7 +42,7 @@ const signUp = async (args, models) => {
     throw new Error('User exists');
   }
 
-  const hashPassword = await generatePassword(password);
+  const hashPassword = await utils.encryptPassword(password);
 
   const newUser = new User({
     email,
@@ -37,7 +52,7 @@ const signUp = async (args, models) => {
   });
 
   const createdUser = await newUser.save();
-  const token = createToken();
+  const token = utils.createToken(createdUser);
 
   return {
     token,

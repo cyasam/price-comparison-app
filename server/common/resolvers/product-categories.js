@@ -1,10 +1,11 @@
 import { productCategoryController } from '../../db/controllers/';
+import utils from '../../utils';
 
 const resolvers = {
   Mutation: {
-    addProductCategory(_, args, { models }) {
+    addProductCategory: utils.authenticated((_, args, { models }) => {
       return productCategoryController.addProductCategory(args, models);
-    }
+    })
   }
 };
 

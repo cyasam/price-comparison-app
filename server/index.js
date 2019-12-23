@@ -8,6 +8,7 @@ import typeDefs from './common/type-defs';
 import resolvers from './common/resolvers';
 
 import models from './db/models';
+import utils from './utils';
 
 dotenv.config({ silent: true });
 
@@ -23,8 +24,13 @@ const startServer = async () => {
     const server = new ApolloServer({
       typeDefs,
       resolvers,
-      context() {
+      async context({ req }) {
+        const token = req.headers.authentication || null;
+
+        const user = await utils.getUser(token);
+
         return {
+          user,
           models
         };
       }

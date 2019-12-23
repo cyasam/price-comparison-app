@@ -5,6 +5,8 @@ import {
   shopController
 } from '../../db/controllers/';
 
+import utils from '../../utils';
+
 const resolvers = {
   Query: {
     prices(_, args, { models }) {
@@ -12,9 +14,9 @@ const resolvers = {
     }
   },
   Mutation: {
-    addPrice(_, args, { models }) {
+    addPrice: utils.authenticated((_, args, { models }) => {
       return priceController.addPrice(args, models);
-    }
+    })
   },
   Price: {
     product({ productId }, __, { models }) {

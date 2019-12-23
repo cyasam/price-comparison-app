@@ -1,10 +1,11 @@
 import { shopController } from '../../db/controllers/';
+import utils from '../../utils';
 
 const resolvers = {
   Mutation: {
-    addShop(_, args, { models }) {
+    addShop: utils.authenticated((_, args, { models }) => {
       return shopController.addShop(args, models);
-    }
+    })
   }
 };
 

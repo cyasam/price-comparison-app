@@ -3,6 +3,7 @@ import {
   productCategoryController,
   productUnitController
 } from '../../db/controllers/';
+import utils from '../../utils';
 
 const resolvers = {
   Query: {
@@ -11,9 +12,9 @@ const resolvers = {
     }
   },
   Mutation: {
-    addProduct(_, args, { models }) {
+    addProduct: utils.authenticated((_, args, { models }) => {
       return productController.addProduct(args, models);
-    }
+    })
   },
   Product: {
     productUnit({ productUnitId }, __, { models }) {
