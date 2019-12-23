@@ -1,8 +1,21 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-const authenticated = next => (_, args, context) => {
-  if (!context.user) {
+import authController from '../db/controllers/auth/';
+
+const authenticated = next => async (_, args, context) => {
+  const { user } = context;
+  if (!user) {
+    throw new Error('Not Authenticated');
+  }
+
+  const { models } = context;
+  const existingUser = await authController.getUserById(
+    { id: user.sub },
+    models
+  );
+
+  if (!existingUser) {
     throw new Error('Not Authenticated');
   }
 
