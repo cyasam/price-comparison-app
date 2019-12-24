@@ -5,6 +5,7 @@ import cheerio from 'cheerio';
 import dotenv from 'dotenv';
 
 import db from '../db';
+import models from '../db/models';
 import crawlerConfig from './crawler-config';
 import { priceController } from '../db/controllers/';
 
@@ -28,25 +29,37 @@ const startCrawler = async () => {
 
   await db.connectDB();
 
+  let completedReqs = 0;
+
   crawlersList.map(({ shopId, productCategoryId, productId, fetchUrl }) => {
     request(fetchUrl, async function(err, res, body) {
       if (err) {
         console.log(err, 'Error occured while hitting URL');
       } else {
         const price = getPrice({ shopId, html: body });
-        const result = await priceController.addPrice({
-          input: {
-            shopId,
-            productCategoryId,
-            productId,
-            price
-          }
-        });
+        const result = await priceController.addPrice(
+          {
+            input: {
+              shopId,
+              productCategoryId,
+              productId,
+              price
+            }
+          },
+          models
+        );
 
         if (!result) {
           console.log('Error while creating nee price.');
         } else {
           console.log(result);
+        }
+
+        completedReqs++;
+        if (crawlersList.length === completedReqs) {
+          console.log('Crawler process completed.');
+
+          process.exit();
         }
       }
     });
