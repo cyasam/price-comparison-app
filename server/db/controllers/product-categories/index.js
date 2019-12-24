@@ -1,3 +1,5 @@
+import { ForbiddenError } from 'apollo-server';
+
 const getProductCategory = async (args, models) => {
   const ProductCategory = models.ProductCategory;
 
@@ -14,7 +16,7 @@ const addProductCategory = async (args, models) => {
 
   const existingProductCategory = await ProductCategory.findOne({ name });
   if (existingProductCategory) {
-    throw new Error(`${name} product category exists`);
+    throw new ForbiddenError(`${name} product category exists`);
   }
 
   const newProductCategory = new ProductCategory({ name });

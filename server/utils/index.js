@@ -1,12 +1,13 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import { AuthenticationError } from 'apollo-server';
 
 import authController from '../db/controllers/auth/';
 
 const authenticated = next => async (_, args, context) => {
   const { user } = context;
   if (!user) {
-    throw new Error('Not Authenticated');
+    throw new AuthenticationError('You must be logged in');
   }
 
   const { models } = context;
@@ -16,7 +17,7 @@ const authenticated = next => async (_, args, context) => {
   );
 
   if (!existingUser) {
-    throw new Error('Not Authenticated');
+    throw new AuthenticationError('You must be logged in');
   }
 
   return next(_, args, context);

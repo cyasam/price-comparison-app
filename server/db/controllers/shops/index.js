@@ -1,3 +1,5 @@
+import { ForbiddenError } from 'apollo-server';
+
 const getShop = async (args, models) => {
   const Shop = models.Shop;
 
@@ -12,7 +14,7 @@ const addShop = async (args, models) => {
 
   const existingShop = await Shop.findOne({ name });
   if (existingShop) {
-    throw new Error(`${name} shop exists`);
+    throw new ForbiddenError(`${name} shop exists`);
   }
 
   const newShop = new Shop({ name });

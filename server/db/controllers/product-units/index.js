@@ -1,3 +1,5 @@
+import { ForbiddenError } from 'apollo-server';
+
 const getProductUnit = async (args, models) => {
   const ProductUnit = models.ProductUnit;
 
@@ -12,7 +14,7 @@ const addProductUnit = async (args, models) => {
 
   const existingProductUnit = await ProductUnit.findOne({ name });
   if (existingProductUnit) {
-    throw new Error(`${name} product unit exists`);
+    throw new ForbiddenError(`${name} product unit exists`);
   }
 
   const newProductUnit = new ProductUnit({ name });

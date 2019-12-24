@@ -1,3 +1,4 @@
+import { ForbiddenError, AuthenticationError } from 'apollo-server';
 import utils from '../../../utils';
 
 const getUserById = async (args, models) => {
@@ -14,7 +15,7 @@ const signIn = async (args, models) => {
   const errorMessage = 'Wrong email and password';
 
   if (!existingUser) {
-    throw new Error(errorMessage);
+    throw new AuthenticationError(errorMessage);
   }
 
   const isPasswordSame = await utils.comparePassword(
@@ -23,7 +24,7 @@ const signIn = async (args, models) => {
   );
 
   if (!isPasswordSame) {
-    throw new Error(errorMessage);
+    throw new AuthenticationError(errorMessage);
   }
 
   const token = utils.createToken(existingUser);
@@ -44,7 +45,7 @@ const signUp = async (args, models) => {
   const existingUser = await User.findOne({ email });
 
   if (existingUser) {
-    throw new Error('User exists');
+    throw new ForbiddenError('User exists');
   }
 
   const hashPassword = await utils.encryptPassword(password);
