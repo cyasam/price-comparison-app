@@ -1,4 +1,5 @@
 import { default as priceResolver } from './prices';
+import { default as priceCurrencyResolver } from './price-currency';
 import { default as productResolver } from './products';
 import { default as productCategoryResolver } from './product-categories';
 import { default as productUnitResolver } from './product-units';
@@ -15,6 +16,7 @@ const resolvers = {
   },
   Mutation: {
     ...priceResolver.Mutation,
+    ...priceCurrencyResolver.Mutation,
     ...productResolver.Mutation,
     ...productCategoryResolver.Mutation,
     ...productUnitResolver.Mutation,

@@ -31,39 +31,42 @@ const startCrawler = async () => {
 
   let completedReqs = 0;
 
-  crawlersList.map(({ shopId, productCategoryId, productId, fetchUrl }) => {
-    request(fetchUrl, async function(err, res, body) {
-      if (err) {
-        console.log(err, 'Error occured while hitting URL');
-      } else {
-        const price = getPrice({ shopId, html: body });
-        const result = await priceController.addPrice(
-          {
-            input: {
-              shopId,
-              productCategoryId,
-              productId,
-              price
-            }
-          },
-          models
-        );
-
-        if (!result) {
-          console.log('Error while creating nee price.');
+  crawlersList.map(
+    ({ shopId, productCategoryId, productId, priceCurrencyId, fetchUrl }) => {
+      request(fetchUrl, async function(err, res, body) {
+        if (err) {
+          console.log(err, 'Error occured while hitting URL');
         } else {
-          console.log(result);
-        }
+          const price = getPrice({ shopId, html: body });
+          const result = await priceController.addPrice(
+            {
+              input: {
+                shopId,
+                productCategoryId,
+                productId,
+                price,
+                priceCurrencyId
+              }
+            },
+            models
+          );
 
-        completedReqs++;
-        if (crawlersList.length === completedReqs) {
-          console.log('Crawler process completed.');
+          if (!result) {
+            console.log('Error while creating nee price.');
+          } else {
+            console.log(result);
+          }
 
-          process.exit();
+          completedReqs++;
+          if (crawlersList.length === completedReqs) {
+            console.log('Crawler process completed.');
+
+            process.exit();
+          }
         }
-      }
-    });
-  });
+      });
+    }
+  );
 };
 
 startCrawler();

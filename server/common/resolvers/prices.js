@@ -1,5 +1,6 @@
 import {
   priceController,
+  priceCurrencyController,
   productController,
   productCategoryController,
   shopController
@@ -32,6 +33,12 @@ const resolvers = {
     },
     shop({ shopId }, __, { models }) {
       return shopController.getShop({ shopId }, models);
+    },
+    currency({ priceCurrencyId }, __, { models }) {
+      return priceCurrencyController.getPriceCurrency(
+        { priceCurrencyId },
+        models
+      );
     }
   }
 };

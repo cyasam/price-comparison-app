@@ -8,10 +8,19 @@ const priceSchema = new Schema({
   productCategoryId: ObjectId,
   productId: ObjectId,
   price: Number,
+  priceCurrencyId: ObjectId,
   createDate: Date
 });
 
 const Price = mongoose.model('Price', priceSchema);
+
+// Currency
+const priceCurrency = new Schema({
+  name: String,
+  short: String
+});
+
+const PriceCurrency = mongoose.model('PriceCurrency', priceCurrency);
 
 // Product
 const productSchema = new Schema({
@@ -71,6 +80,7 @@ const User = mongoose.model('User', userSchema);
 
 export default {
   Price,
+  PriceCurrency,
   Product,
   ProductUnit,
   ProductCategory,

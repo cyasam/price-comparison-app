@@ -9,7 +9,14 @@ const typeDefs = gql`
     productCategory: ProductCategory!
     product: Product!
     price: Float!
+    currency: PriceCurrency!
     createDate: DateTime!
+  }
+
+  type PriceCurrency {
+    id: ID!
+    name: String!
+    short: String!
   }
 
   type Product {
@@ -41,6 +48,12 @@ const typeDefs = gql`
     productCategoryId: ID!
     productId: ID!
     price: Float!
+    priceCurrencyId: ID!
+  }
+
+  input newPriceCurrency {
+    name: String!
+    short: String!
   }
 
   input newProduct {
@@ -93,6 +106,7 @@ const typeDefs = gql`
 
   type Mutation {
     addPrice(input: newPrice!): Price!
+    addPriceCurrency(input: newPriceCurrency!): PriceCurrency!
     addProduct(input: newProduct!): Product!
     addProductUnit(input: newProductUnit!): ProductUnit!
     addProductCategory(input: newProductCategory!): ProductCategory!
