@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import request from 'request';
-import cheerio from 'cheerio';
+import { JSDOM } from 'jsdom';
 import dotenv from 'dotenv';
 
 import db from '../db';
@@ -16,10 +16,10 @@ const getCrawlerList = () => {
 };
 
 const getPrice = ({ shopId, html }) => {
-  let $ = cheerio.load(html);
+  let dom = new JSDOM(html);
   const { callback } = crawlerConfig.find(config => config.shopId === shopId);
 
-  return parseFloat(callback($));
+  return parseFloat(callback(dom.window.document));
 };
 
 const startCrawler = async () => {
