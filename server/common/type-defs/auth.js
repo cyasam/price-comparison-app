@@ -18,6 +18,11 @@ const typeDefs = gql`
     password: String!
     name: String!
   }
+
+  extend type Mutation {
+    signIn(input: signIn!): AuthPayload!
+    signUp(input: signUp!): AuthPayload!
+  }
 `;
 
 export default typeDefs;

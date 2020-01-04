@@ -13,6 +13,10 @@ const typeDefs = gql`
     name: String!
     short: String!
   }
+
+  extend type Mutation {
+    addPriceCurrency(input: newPriceCurrency!): PriceCurrency!
+  }
 `;
 
 export default typeDefs;

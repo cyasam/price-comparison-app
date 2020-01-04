@@ -22,21 +22,9 @@ const typeDefs = gql`
   ${AuthDefs}
 
   # Queries and Mutations
-  type Query {
-    prices: [Price]!
-    products: [Product]!
-  }
+  type Query
 
-  type Mutation {
-    addPrice(input: newPrice!): Price!
-    addPriceCurrency(input: newPriceCurrency!): PriceCurrency!
-    addProduct(input: newProduct!): Product!
-    addProductUnit(input: newProductUnit!): ProductUnit!
-    addProductCategory(input: newProductCategory!): ProductCategory!
-    addShop(input: newShop!): Shop!
-    signIn(input: signIn!): AuthPayload!
-    signUp(input: signUp!): AuthPayload!
-  }
+  type Mutation
 `;
 
 export default typeDefs;

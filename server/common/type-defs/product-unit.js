@@ -11,6 +11,10 @@ const typeDefs = gql`
   input newProductUnit {
     name: String!
   }
+
+  extend type Mutation {
+    addProductUnit(input: newProductUnit!): ProductUnit!
+  }
 `;
 
 export default typeDefs;

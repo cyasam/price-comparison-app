@@ -11,6 +11,10 @@ const typeDefs = gql`
   input newShop {
     name: String!
   }
+
+  extend type Mutation {
+    addShop(input: newShop!): Shop!
+  }
 `;
 
 export default typeDefs;

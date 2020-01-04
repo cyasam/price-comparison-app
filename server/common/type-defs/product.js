@@ -15,6 +15,14 @@ const typeDefs = gql`
     productCategoryId: ID!
     productUnitId: ID!
   }
+
+  extend type Query {
+    products: [Product]!
+  }
+
+  extend type Mutation {
+    addProduct(input: newProduct!): Product!
+  }
 `;
 
 export default typeDefs;

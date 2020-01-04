@@ -20,6 +20,14 @@ const typeDefs = gql`
     price: Float!
     priceCurrencyId: ID!
   }
+
+  extend type Query {
+    prices: [Price]!
+  }
+
+  extend type Mutation {
+    addPrice(input: newPrice!): Price!
+  }
 `;
 
 export default typeDefs;
