@@ -38,21 +38,6 @@ const startServer = async () => {
 
     server.applyMiddleware({ app, path: API_PATH });
 
-    if (process.env.NODE_ENV !== 'production') {
-      const webpack = await import('webpack');
-      const webpackDevMiddleware = await import('webpack-dev-middleware');
-      const webpackHotMiddleware = await import('webpack-hot-middleware');
-      const webpackConfig = await import('../webpack.config');
-
-      const compiler = webpack.default(webpackConfig.default);
-      app.use(
-        webpackDevMiddleware.default(compiler, {
-          publicPath: webpackConfig.output.publicPath
-        })
-      );
-      app.use(webpackHotMiddleware.default(compiler));
-    }
-
     app.use(express.static('build/client'));
 
     app.get('*', (req, res) => {
