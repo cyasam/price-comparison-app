@@ -8,6 +8,7 @@ import ProductCategoriesDefs from './product-categories';
 import ShopDefs from './shop';
 import UserDefs from './user';
 import AuthDefs from './auth';
+import CrawlerDefs from './crawler';
 
 const typeDefs = gql`
   scalar DateTime
@@ -20,6 +21,7 @@ const typeDefs = gql`
   ${ShopDefs}
   ${UserDefs}
   ${AuthDefs}
+  ${CrawlerDefs}
 
   # Queries and Mutations
   type Query

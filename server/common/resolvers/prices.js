@@ -1,10 +1,4 @@
-import {
-  priceController,
-  priceCurrencyController,
-  productController,
-  productCategoryController,
-  shopController
-} from '../../db/controllers/';
+import { priceController } from '../../db/controllers/';
 
 import utils from '../../utils';
 
@@ -18,28 +12,6 @@ const resolvers = {
     addPrice: utils.authenticated((_, args, { models }) => {
       return priceController.addPrice(args, models);
     })
-  },
-  Price: {
-    product({ productId }, __, { models }) {
-      return productController.getProduct({ productId }, models);
-    },
-    productCategory({ productCategoryId }, __, { models }) {
-      return productCategoryController.getProductCategory(
-        {
-          productCategoryId
-        },
-        models
-      );
-    },
-    shop({ shopId }, __, { models }) {
-      return shopController.getShop({ shopId }, models);
-    },
-    currency({ priceCurrencyId }, __, { models }) {
-      return priceCurrencyController.getPriceCurrency(
-        { priceCurrencyId },
-        models
-      );
-    }
   }
 };
 
