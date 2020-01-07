@@ -1,7 +1,5 @@
 import { ForbiddenError } from 'apollo-server';
 
-import utils from '../../../utils';
-
 const getCrawlers = async (args, models) => {
   const Crawler = models.Crawler;
 
@@ -24,8 +22,6 @@ const addCrawler = async (args, models) => {
     createDate: new Date().toISOString()
   });
   const crawler = await newCrawler.save();
-
-  await utils.createCrawlerJSON();
 
   return crawler;
 };

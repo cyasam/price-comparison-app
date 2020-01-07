@@ -1,11 +1,8 @@
-import fs from 'fs';
-import path from 'path';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { AuthenticationError } from 'apollo-server';
 
-import { authController, crawlerController } from '../db/controllers';
-import models from '../db/models';
+import { authController } from '../db/controllers';
 
 const authenticated = next => async (_, args, context) => {
   const { user } = context;
@@ -67,32 +64,10 @@ const getUser = token => {
   }
 };
 
-const createCrawlerJSON = async () => {
-  try {
-    let crawlers = await crawlerController.getCrawlers(null, models);
-    crawlers = {
-      list: crawlers
-    };
-
-    fs.writeFile(
-      path.join(__dirname, '../crawler/crawler.json'),
-      JSON.stringify(crawlers, null, 2),
-      err => {
-        if (err) {
-          throw err;
-        }
-      }
-    );
-  } catch (err) {
-    return null;
-  }
-};
-
 export default {
   authenticated,
   encryptPassword,
   comparePassword,
   createToken,
-  createCrawlerJSON,
   getUser
 };

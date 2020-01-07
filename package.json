@@ -6,7 +6,7 @@
   "scripts": {
     "client:dev": "cross-env NODE_ENV=development webpack-dev-server",
     "client": "cross-env NODE_ENV=production webpack -p",
-    "server:dev": "cross-env NODE_ENV=development nodemon --watch server --ignore server/crawler/crawler.json --exec babel-node server/index.js",
+    "server:dev": "cross-env NODE_ENV=development nodemon --watch server --exec babel-node server/index.js",
     "server": "cross-env NODE_ENV=production webpack --config ./webpack.node.config.js -p",
     "dev": "concurrently --kill-others-on-fail \"npm run server:dev\" \" npm run client:dev\"",
     "crawler:dev": "cross-env NODE_ENV=development babel-node server/crawler/index.js",
