@@ -2,10 +2,34 @@
   "list": [
     {
       "id": 1,
-      "shopId": "5e0e86df7d1e9a250c413ab1",
-      "productCategoryId": "5e0e87567d1e9a250c413ab4",
-      "productId": "5e0e87b97d1e9a250c413ab6",
-      "priceCurrencyId": "5e0eab87bbdb87256c44e5a7",
+      "shopId": "5df6566ce5fc8a44e858c98d",
+      "productCategoryId": "5df65687e5fc8a44e858c98e",
+      "productId": "5df6569fe5fc8a44e858c990",
+      "priceCurrencyId": "5e14352155748b2a1c6989ce",
+      "fetchUrl": "https://www.carrefoursa.com/tr/limon-file-kg-p-30044236"
+    },
+    {
+      "id": 2,
+      "shopId": "5df6566ce5fc8a44e858c98d",
+      "productCategoryId": "5df65687e5fc8a44e858c98e",
+      "productId": "5df67c2214eb1a13482877e1",
+      "priceCurrencyId": "5e14352155748b2a1c6989ce",
+      "fetchUrl": "https://www.carrefoursa.com/tr/sikma-portakal-kg-p-30092100"
+    },
+    {
+      "id": 3,
+      "shopId": "5df6816174812f1d30aabe02",
+      "productCategoryId": "5df65687e5fc8a44e858c98e",
+      "productId": "5df67c2214eb1a13482877e1",
+      "priceCurrencyId": "5e14352155748b2a1c6989ce",
+      "fetchUrl": "https://www.migros.com.tr/portakal-kg-p-1a0a047"
+    },
+    {
+      "id": 4,
+      "shopId": "5e14387c43bf242600f02673",
+      "productCategoryId": "5e14389743bf242600f02674",
+      "productId": "5e1438d643bf242600f02676",
+      "priceCurrencyId": "5e14352155748b2a1c6989ce",
       "fetchUrl": "https://www.hepsiburada.com/xiaomi-mi-9t-128-gb-xiaomi-turkiye-garantili-p-HBV00000KXK3B?magaza=MI%20STORE"
     }
   ]
