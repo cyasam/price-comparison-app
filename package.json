@@ -8,7 +8,7 @@
     "server": "cross-env NODE_ENV=development nodemon --exec babel-node server/index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \" npm run client\"",
     "crawler:dev": "cross-env NODE_ENV=development babel-node server/crawler/index.js",
-    "heroku-prebuild": "cd client && npm install",
+    "postinstall": "npm install --prefix client",
     "heroku-postbuild": "concurrently \"cross-env NODE_ENV=production webpack -p\" \"npm run build --prefix client\"",
     "crawler": "node build/crawler.js",
     "start": "node build/server.js"
