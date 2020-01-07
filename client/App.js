@@ -5,7 +5,6 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
-import SVG from 'react-inlinesvg';
 
 import UnderConstruction from './components/UnderConstruction';
 import Home from './pages/home/Home';
@@ -17,7 +16,7 @@ const App = () => {
     <Router>
       <Switch>
         <Route exact path="/">
-          <Home />
+          <UnderConstruction />
         </Route>
         <Route path="/under-construction">
           <UnderConstruction />
