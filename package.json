@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "client": "npm run start --prefix client",
-    "server": "cross-env NODE_ENV=development nodemon --exec babel-node server/index.js",
+    "server": "cross-env NODE_ENV=development nodemon --watch server --exec babel-node server/index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \" npm run client\"",
     "crawler:dev": "cross-env NODE_ENV=development babel-node server/crawler/index.js",
     "heroku-postbuild": "concurrently \"cross-env NODE_ENV=production webpack -p\" \"cd client && npm install && npm run build\"",
