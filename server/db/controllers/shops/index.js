@@ -17,13 +17,22 @@ const addShop = async (args, models) => {
     throw new ForbiddenError(`${name} shop exists`);
   }
 
-  const newShop = new Shop({ name });
+  const newShop = new Shop(args.input);
   const shop = await newShop.save();
 
   return shop;
 };
 
+const updateShop = async (args, models) => {
+  const Shop = models.Shop;
+
+  const updatedShop = await Shop.findByIdAndUpdate(args.id, args.input);
+
+  return updatedShop;
+};
+
 export default {
   getShop,
-  addShop
+  addShop,
+  updateShop
 };

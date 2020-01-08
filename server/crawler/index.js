@@ -3,9 +3,13 @@ import { JSDOM } from 'jsdom';
 import dotenv from 'dotenv';
 
 import db from '../db';
-import models from '../db/models';
-import crawlerConfig from './crawler-config';
-import { priceController, crawlerController } from '../db/controllers/';
+import * as models from '../db/models';
+
+import {
+  priceController,
+  crawlerController,
+  shopController
+} from '../db/controllers/';
 
 const getCrawlerList = async () => {
   try {
@@ -16,13 +20,16 @@ const getCrawlerList = async () => {
   }
 };
 
-const getPrice = ({ shopId, html }) => {
+const getPrice = async ({ shopId, html }) => {
   let dom = new JSDOM(html);
-  const crawler = crawlerConfig.find(
-    config => config.shopId === shopId.toString()
+  const shop = await shopController.getShop(
+    { shopId: shopId.toString() },
+    models
   );
 
-  return parseFloat(crawler.callback(dom.window.document));
+  const callback = new Function('document', shop.crawlerCallback);
+
+  return parseFloat(callback(dom.window.document));
 };
 
 const startCrawler = async () => {
@@ -41,7 +48,8 @@ const startCrawler = async () => {
           if (err) {
             console.log(err, 'Error occured while hitting URL');
           } else {
-            const price = getPrice({ shopId, html });
+            const price = await getPrice({ shopId, html });
+
             const result = await priceController.addPrice(
               {
                 input: {

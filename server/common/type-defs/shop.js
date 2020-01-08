@@ -10,10 +10,17 @@ const typeDefs = gql`
 
   input newShop {
     name: String!
+    crawlerCallback: String!
+  }
+
+  input updateShop {
+    name: String!
+    crawlerCallback: String!
   }
 
   extend type Mutation {
     addShop(input: newShop!): Shop!
+    updateShop(id: ID!, input: updateShop!): Shop!
   }
 `;
 

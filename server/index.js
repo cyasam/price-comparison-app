@@ -7,7 +7,7 @@ import db from './db';
 import typeDefs from './common/type-defs';
 import resolvers from './common/resolvers';
 
-import models from './db/models';
+import * as models from './db/models';
 import utils from './utils';
 
 dotenv.config({ silent: true });
