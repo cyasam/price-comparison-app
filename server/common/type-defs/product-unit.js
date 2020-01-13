@@ -14,6 +14,7 @@ const typeDefs = gql`
 
   extend type Mutation {
     addProductUnit(input: newProductUnit!): ProductUnit!
+    updateProductUnit(id: ID!, input: newProductUnit!): ProductUnit!
   }
 `;
 

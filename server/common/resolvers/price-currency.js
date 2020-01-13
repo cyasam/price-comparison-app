@@ -5,6 +5,9 @@ const resolvers = {
   Mutation: {
     addPriceCurrency: utils.authenticated((_, args, { models }) => {
       return priceCurrencyController.addPriceCurrency(args, models);
+    }),
+    updatePriceCurrency: utils.authenticated((_, args, { models }) => {
+      return priceCurrencyController.updatePriceCurrency(args, models);
     })
   }
 };

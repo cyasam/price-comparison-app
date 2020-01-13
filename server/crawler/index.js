@@ -14,22 +14,34 @@ import {
 const getCrawlerList = async () => {
   try {
     let crawlers = await crawlerController.getCrawlers(null, models);
+    if (!crawlers) {
+      throw new Error('Crawlers not found');
+    }
+
     return crawlers;
   } catch (err) {
-    throw new Error(err.message);
+    console.log(err.message);
   }
 };
 
 const getPrice = async ({ shopId, html }) => {
-  let dom = new JSDOM(html);
-  const shop = await shopController.getShop(
-    { shopId: shopId.toString() },
-    models
-  );
+  try {
+    let dom = new JSDOM(html);
+    const shop = await shopController.getShop(
+      { shopId: shopId.toString() },
+      models
+    );
 
-  const callback = new Function('document', shop.crawlerCallback);
+    if (!dom) {
+      throw new Error('DOM not found');
+    }
 
-  return parseFloat(callback(dom.window.document));
+    const callback = new Function('document', shop.crawlerCallback);
+
+    return parseFloat(callback(dom.window.document));
+  } catch (err) {
+    console.log(err.message);
+  }
 };
 
 const startCrawler = async () => {
@@ -43,44 +55,80 @@ const startCrawler = async () => {
     let completedReqs = 0;
 
     crawlersList.map(
-      ({ shopId, productCategoryId, productId, priceCurrencyId, fetchUrl }) => {
-        request(fetchUrl, async function(err, res, html) {
-          if (err) {
-            console.log(err, 'Error occured while hitting URL');
-          } else {
-            const price = await getPrice({ shopId, html });
+      ({
+        _id,
+        shopId,
+        productCategoryId,
+        productId,
+        priceCurrencyId,
+        fetchUrl
+      }) => {
+        request(
+          {
+            uri: fetchUrl,
+            followAllRedirects: true
+          },
+          async function(err, res, html) {
+            try {
+              if (err) {
+                throw new Error('Error occured while requesting.');
+              } else if (
+                !res ||
+                res.statusCode >= 400 ||
+                res.request._redirect.redirects.length
+              ) {
+                throw new Error('Page not found.');
+              }
 
-            const result = await priceController.addPrice(
-              {
-                input: {
-                  shopId,
-                  productCategoryId,
-                  productId,
-                  price,
-                  priceCurrencyId
+              const price = await getPrice({ shopId, html });
+
+              const result = await priceController.addPrice(
+                {
+                  input: {
+                    shopId,
+                    productCategoryId,
+                    productId,
+                    price,
+                    priceCurrencyId
+                  }
+                },
+                models
+              );
+
+              if (!result) {
+                throw new Error('Error while creating new price.');
+              } else {
+                const updatedCrawler = await crawlerController.updateCrawlerSuccessProcessDate(
+                  {
+                    id: _id
+                  },
+                  models
+                );
+
+                if (!updatedCrawler) {
+                  throw new Error(
+                    'Error while updating new successProcessDate.'
+                  );
                 }
-              },
-              models
-            );
 
-            if (!result) {
-              console.log('Error while creating nee price.');
-            } else {
-              console.log(result);
-            }
+                console.log(result);
+              }
 
-            completedReqs++;
-            if (crawlersList.length === completedReqs) {
-              console.log('Crawler process completed.');
+              completedReqs++;
+              if (crawlersList.length === completedReqs) {
+                console.log('Crawler process completed.');
 
-              process.exit();
+                process.exit();
+              }
+            } catch (err) {
+              console.log(`${err.message} URL: ${fetchUrl}`);
             }
           }
-        });
+        );
       }
     );
   } catch (err) {
-    throw new Error(err.message);
+    console.log(err.message);
   }
 };
 

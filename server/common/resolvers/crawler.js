@@ -11,6 +11,9 @@ const resolvers = {
   Mutation: {
     addCrawler: utils.authenticated((_, args, { models }) => {
       return crawlerController.addCrawler(args, models);
+    }),
+    updateCrawler: utils.authenticated((_, args, { models }) => {
+      return crawlerController.updateCrawler(args, models);
     })
   }
 };

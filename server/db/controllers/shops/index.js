@@ -1,4 +1,7 @@
-import { ForbiddenError } from 'apollo-server';
+import { ForbiddenError, ValidationError } from 'apollo-server';
+import mongoose from 'mongoose';
+
+const ObjectId = mongoose.Types.ObjectId;
 
 const getShop = async (args, models) => {
   const Shop = models.Shop;
@@ -25,8 +28,19 @@ const addShop = async (args, models) => {
 
 const updateShop = async (args, models) => {
   const Shop = models.Shop;
+  const { id, input } = args;
 
-  const updatedShop = await Shop.findByIdAndUpdate(args.id, args.input);
+  if (!id) {
+    throw new ValidationError(`Please enter id`);
+  } else if (!ObjectId.isValid(id)) {
+    throw new ValidationError(`id: ${id} not valid`);
+  }
+
+  const updatedShop = await Shop.findByIdAndUpdate(id, input);
+
+  if (!updatedShop) {
+    throw new ValidationError(`Shop not found`);
+  }
 
   return updatedShop;
 };

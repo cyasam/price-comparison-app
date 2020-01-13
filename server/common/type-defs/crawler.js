@@ -9,6 +9,7 @@ const typeDefs = gql`
     currency: PriceCurrency!
     fetchUrl: String!
     createDate: DateTime!
+    successProcessDate: DateTime
   }
 
   # Inputs
@@ -27,6 +28,7 @@ const typeDefs = gql`
 
   extend type Mutation {
     addCrawler(input: newCrawler!): Crawler!
+    updateCrawler(id: ID, input: newCrawler!): Crawler!
   }
 `;
 

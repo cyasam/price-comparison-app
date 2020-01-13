@@ -11,6 +11,9 @@ const resolvers = {
   Mutation: {
     addPrice: utils.authenticated((_, args, { models }) => {
       return priceController.addPrice(args, models);
+    }),
+    updatePrice: utils.authenticated((_, args, { models }) => {
+      return priceController.updatePrice(args, models);
     })
   }
 };

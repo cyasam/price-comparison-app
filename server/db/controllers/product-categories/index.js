@@ -1,4 +1,7 @@
-import { ForbiddenError } from 'apollo-server';
+import { ForbiddenError, ValidationError } from 'apollo-server';
+import mongoose from 'mongoose';
+
+const ObjectId = mongoose.Types.ObjectId;
 
 const getProductCategory = async (args, models) => {
   const ProductCategory = models.ProductCategory;
@@ -24,7 +27,29 @@ const addProductCategory = async (args, models) => {
   return productCategory;
 };
 
+const updateProductCategory = async (args, models) => {
+  const ProductCategory = models.ProductCategory;
+  const { id, input } = args;
+
+  if (!id) {
+    throw new ValidationError(`Please enter id`);
+  } else if (!ObjectId.isValid(id)) {
+    throw new ValidationError(`id: ${id} not valid`);
+  }
+  const updatedProductCategory = await ProductCategory.findByIdAndUpdate(
+    id,
+    input
+  );
+
+  if (!updatedProductCategory) {
+    throw new ValidationError(`Product category not found`);
+  }
+
+  return updatedProductCategory;
+};
+
 export default {
   getProductCategory,
-  addProductCategory
+  addProductCategory,
+  updateProductCategory
 };

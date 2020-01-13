@@ -5,6 +5,9 @@ const resolvers = {
   Mutation: {
     addProductUnit: utils.authenticated((_, args, { models }) => {
       return productUnitController.addProductUnit(args, models);
+    }),
+    updateProductUnit: utils.authenticated((_, args, { models }) => {
+      return productUnitController.updateProductUnit(args, models);
     })
   }
 };

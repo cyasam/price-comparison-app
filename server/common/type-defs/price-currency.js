@@ -5,6 +5,7 @@ const typeDefs = gql`
     id: ID!
     name: String!
     short: String!
+    sign: String
   }
 
   # Inputs
@@ -12,10 +13,12 @@ const typeDefs = gql`
   input newPriceCurrency {
     name: String!
     short: String!
+    sign: String
   }
 
   extend type Mutation {
     addPriceCurrency(input: newPriceCurrency!): PriceCurrency!
+    updatePriceCurrency(id: ID!, input: newPriceCurrency!): PriceCurrency!
   }
 `;
 

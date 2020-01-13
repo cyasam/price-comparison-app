@@ -5,6 +5,9 @@ const resolvers = {
   Mutation: {
     addProductCategory: utils.authenticated((_, args, { models }) => {
       return productCategoryController.addProductCategory(args, models);
+    }),
+    updateProductCategory: utils.authenticated((_, args, { models }) => {
+      return productCategoryController.updateProductCategory(args, models);
     })
   }
 };

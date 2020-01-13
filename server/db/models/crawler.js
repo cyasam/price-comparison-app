@@ -9,7 +9,8 @@ const crawlerSchema = new Schema({
   productId: ObjectId,
   priceCurrencyId: ObjectId,
   fetchUrl: String,
-  createDate: Date
+  createDate: Date,
+  successProcessDate: Date
 });
 
 const Crawler = mongoose.model('Crawler', crawlerSchema);
