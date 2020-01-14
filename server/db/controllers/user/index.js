@@ -33,10 +33,6 @@ const getUser = async (args, models) => {
 
   const user = await User.findOne(params);
 
-  if (!user) {
-    throw new ValidationError('User not found');
-  }
-
   return user;
 };
 
