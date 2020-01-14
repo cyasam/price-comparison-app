@@ -3,6 +3,14 @@ import mongoose from 'mongoose';
 
 const ObjectId = mongoose.Types.ObjectId;
 
+const getUsers = async (args, models) => {
+  const User = models.User;
+
+  const user = await User.find(args);
+
+  return user;
+};
+
 const getUser = async (args, models) => {
   const User = models.User;
   const { id, ...otherArgs } = args;
@@ -11,13 +19,19 @@ const getUser = async (args, models) => {
     throw new ValidationError(`Please enter at least one parameter`);
   }
 
-  if (!id) {
+  if (!id && Object.keys(otherArgs).length === 0) {
     throw new ValidationError(`Please enter id`);
-  } else if (!ObjectId.isValid(id)) {
+  } else if (id && !ObjectId.isValid(id)) {
     throw new ValidationError(`id: ${id} not valid`);
   }
 
-  const user = await User.findOne({ _id: id, ...otherArgs });
+  const params = { ...otherArgs };
+
+  if (id) {
+    params._id = id;
+  }
+
+  const user = await User.findOne(params);
 
   if (!user) {
     throw new ValidationError('User not found');
@@ -46,6 +60,7 @@ const updateUser = async (args, models) => {
 };
 
 export default {
+  getUsers,
   getUser,
   updateUser
 };

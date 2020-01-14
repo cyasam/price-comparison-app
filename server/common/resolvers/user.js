@@ -3,6 +3,9 @@ import utils from '../../utils';
 
 const resolvers = {
   Query: {
+    users: utils.authenticated((_, args, { models }) => {
+      return userController.getUsers(args, models);
+    }),
     user: utils.authenticated((_, args, { models }) => {
       return userController.getUser(args, models);
     })
