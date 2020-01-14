@@ -6,6 +6,7 @@ import { default as productUnitResolver } from './product-units';
 import { default as shopResolver } from './shops';
 import { default as authResolver } from './auth';
 import { default as crawlerResolver } from './crawler';
+import { default as userResolver } from './user';
 import { commonResolvers } from './common.js';
 
 import { GraphQLDateTime } from 'graphql-iso-date';
@@ -15,7 +16,8 @@ const resolvers = {
   Query: {
     ...priceResolver.Query,
     ...productResolver.Query,
-    ...crawlerResolver.Query
+    ...crawlerResolver.Query,
+    ...userResolver.Query
   },
   Mutation: {
     ...priceResolver.Mutation,

@@ -1,23 +1,21 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { AuthenticationError } from 'apollo-server';
+import emailValidator from 'email-validator';
 
-import { authController } from '../db/controllers';
+import { userController } from '../db/controllers';
 
 const authenticated = next => async (_, args, context) => {
   const { user } = context;
   if (!user) {
-    throw new AuthenticationError('You must be logged in');
+    throw new AuthenticationError('You must be log in');
   }
 
   const { models } = context;
-  const existingUser = await authController.getUserById(
-    { id: user.sub },
-    models
-  );
+  const existingUser = await userController.getUser({ id: user.sub }, models);
 
   if (!existingUser) {
-    throw new AuthenticationError('You must be logged in');
+    throw new AuthenticationError('You must be log in');
   }
 
   return next(_, args, context);
@@ -64,10 +62,16 @@ const getUser = token => {
   }
 };
 
+// User
+const validateEmail = email => {
+  return emailValidator.validate(email);
+};
+
 export default {
   authenticated,
   encryptPassword,
   comparePassword,
   createToken,
-  getUser
+  getUser,
+  validateEmail
 };

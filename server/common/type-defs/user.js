@@ -6,6 +6,11 @@ const typeDefs = gql`
     name: String!
     email: String!
   }
+
+  extend type Query {
+    users: [User]
+    user(id: ID, name: String, email: String): User!
+  }
 `;
 
 export default typeDefs;

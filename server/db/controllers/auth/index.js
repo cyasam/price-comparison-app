@@ -1,11 +1,6 @@
 import { ForbiddenError, AuthenticationError } from 'apollo-server';
 import utils from '../../../utils';
 
-const getUserById = async (args, models) => {
-  const User = models.User;
-  return await User.findById(args.id);
-};
-
 const signIn = async (args, models) => {
   const User = models.User;
 
@@ -71,7 +66,6 @@ const signUp = async (args, models) => {
 };
 
 export default {
-  getUserById,
   signIn,
   signUp
 };
