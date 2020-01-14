@@ -6,6 +6,11 @@ const resolvers = {
     user: utils.authenticated((_, args, { models }) => {
       return userController.getUser(args, models);
     })
+  },
+  Mutation: {
+    updateUser: utils.authenticated((_, args, { models }) => {
+      return userController.updateUser(args, models);
+    })
   }
 };
 

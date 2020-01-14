@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   name: String,
+  surname: String,
   email: {
     type: String,
     lowercase: true,
@@ -14,7 +15,8 @@ const userSchema = new Schema({
     validate: [utils.validateEmail, 'Please fill a valid email address']
   },
   password: String,
-  createDate: Date
+  createDate: Date,
+  lastSigninDate: Date
 });
 
 const User = mongoose.model('User', userSchema);

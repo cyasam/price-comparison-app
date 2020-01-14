@@ -27,7 +27,8 @@ const resolvers = {
     ...productUnitResolver.Mutation,
     ...shopResolver.Mutation,
     ...authResolver.Mutation,
-    ...crawlerResolver.Mutation
+    ...crawlerResolver.Mutation,
+    ...userResolver.Mutation
   },
 
   Price: { ...commonResolvers },

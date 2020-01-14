@@ -26,6 +26,26 @@ const getUser = async (args, models) => {
   return user;
 };
 
+const updateUser = async (args, models) => {
+  const User = models.User;
+  const { id, input } = args;
+
+  if (!id) {
+    throw new ValidationError(`Please enter id`);
+  } else if (!ObjectId.isValid(id)) {
+    throw new ValidationError(`id: ${id} not valid`);
+  }
+
+  const user = await User.findByIdAndUpdate(id, { $set: input });
+
+  if (!user) {
+    throw new ValidationError('User not found');
+  }
+
+  return user;
+};
+
 export default {
-  getUser
+  getUser,
+  updateUser
 };

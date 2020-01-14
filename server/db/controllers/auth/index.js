@@ -1,4 +1,8 @@
-import { ForbiddenError, AuthenticationError } from 'apollo-server';
+import {
+  ForbiddenError,
+  AuthenticationError,
+  ValidationError
+} from 'apollo-server';
 import utils from '../../../utils';
 
 const signIn = async (args, models) => {
@@ -23,13 +27,24 @@ const signIn = async (args, models) => {
   }
 
   const token = utils.createToken(existingUser);
+  const lastSigninDate = new Date().toISOString();
+
+  const updatedLastSigninDate = await User.findByIdAndUpdate(existingUser._id, {
+    $set: { lastSigninDate }
+  });
+
+  if (!updatedLastSigninDate) {
+    throw new ValidationError(`lastSigninDate not updated`);
+  }
 
   return {
     token,
     user: {
       id: existingUser._id,
       email: existingUser.email,
-      name: existingUser.name
+      name: existingUser.name,
+      surname: existingUser.surname,
+      lastSigninDate
     }
   };
 };
