@@ -6,6 +6,7 @@ const typeDefs = gql`
     name: String!
     surname: String!
     email: String!
+    createDate: DateTime!
     lastSigninDate: DateTime!
   }
 
