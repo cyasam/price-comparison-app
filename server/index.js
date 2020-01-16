@@ -1,19 +1,13 @@
-import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
 
 import db from './db';
-import typeDefs from './common/type-defs';
-import resolvers from './common/resolvers';
-
-import * as models from './db/models';
-import utils from './utils';
+import apolloServerInit from './utils/server';
 
 dotenv.config({ silent: true });
 
 const PORT = process.env.PORT || 4400;
-const API_PATH = process.env.API_PATH || '/gql-api';
 
 const startServer = async () => {
   try {
@@ -21,22 +15,7 @@ const startServer = async () => {
 
     await db.connectDB();
 
-    const server = new ApolloServer({
-      typeDefs,
-      resolvers,
-      async context({ req }) {
-        const token = req.headers.authentication || null;
-
-        const user = await utils.getUser(token);
-
-        return {
-          user,
-          models
-        };
-      }
-    });
-
-    server.applyMiddleware({ app, path: API_PATH });
+    apolloServerInit(app);
 
     app.use(express.static('build/client'));
 
