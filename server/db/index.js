@@ -19,8 +19,7 @@ export default {
         useCreateIndex: true
       });
     } catch (err) {
-      console.log(err.message);
-      process.exit(1);
+      throw new Error(err);
     }
   }
 };
