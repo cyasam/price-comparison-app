@@ -47,8 +47,9 @@ const startServer = async () => {
     app.listen(PORT, () => {
       console.log(`Server ready`);
     });
-  } catch (error) {
-    throw new Error(error);
+  } catch (err) {
+    console.log(err.message);
+    process.exit(1);
   }
 };
 

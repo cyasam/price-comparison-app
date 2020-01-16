@@ -17,6 +17,7 @@ const typeDefs = gql`
     email: String!
     password: String!
     name: String!
+    surname: String!
   }
 
   extend type Mutation {

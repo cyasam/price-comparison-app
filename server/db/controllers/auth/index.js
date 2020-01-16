@@ -51,8 +51,8 @@ const signIn = async (args, models) => {
 
 const signUp = async (args, models) => {
   const User = models.User;
-  const { email, password, name } = args.input;
-  const existingUser = await User.findOne({ email });
+  const { password, ...otherInputs } = args.input;
+  const existingUser = await User.findOne({ email: otherInputs.email });
 
   if (existingUser) {
     throw new ForbiddenError('User exists');
@@ -61,9 +61,8 @@ const signUp = async (args, models) => {
   const hashPassword = await utils.encryptPassword(password);
 
   const newUser = new User({
-    email,
+    ...otherInputs,
     password: hashPassword,
-    name,
     createDate: new Date().toISOString()
   });
 
@@ -75,7 +74,8 @@ const signUp = async (args, models) => {
     user: {
       id: createdUser._id,
       email: createdUser.email,
-      name: createdUser.name
+      name: createdUser.name,
+      surname: createdUser.surname
     }
   };
 };

@@ -26,7 +26,7 @@ const encryptPassword = async password => {
     const saltRounds = 10;
     return await bcrypt.hash(password, saltRounds);
   } catch (err) {
-    throw new Error('Internal Error');
+    throw new Error(err.message);
   }
 };
 
@@ -34,7 +34,7 @@ const comparePassword = async (password, realPassword) => {
   try {
     return await bcrypt.compare(password, realPassword);
   } catch (err) {
-    throw new Error('Internal Error');
+    throw new Error(err.message);
   }
 };
 
@@ -50,7 +50,7 @@ const createToken = user => {
       { expiresIn: process.env.EXPIRES_IN }
     );
   } catch (err) {
-    throw new Error('Internal Error');
+    throw new Error(err.message);
   }
 };
 
