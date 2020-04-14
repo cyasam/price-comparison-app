@@ -8,7 +8,7 @@ import * as models from '../db/models';
 import {
   priceController,
   crawlerController,
-  shopController
+  shopController,
 } from '../db/controllers/';
 
 const getCrawlerList = async () => {
@@ -38,9 +38,12 @@ const getPrice = async ({ shopId, html }) => {
 
     const callback = new Function('document', shop.crawlerCallback);
 
-    return parseFloat(callback(dom.window.document));
+    const price = parseFloat(callback(dom.window.document));
+
+    return price;
   } catch (err) {
     console.log(err.message);
+    return null;
   }
 };
 
@@ -61,14 +64,14 @@ const startCrawler = async () => {
         productCategoryId,
         productId,
         priceCurrencyId,
-        fetchUrl
+        fetchUrl,
       }) => {
         request(
           {
             uri: fetchUrl,
-            followAllRedirects: true
+            followAllRedirects: true,
           },
-          async function(err, res, html) {
+          async function (err, res, html) {
             try {
               if (err) {
                 throw new Error('Error occured while requesting.');
@@ -89,8 +92,8 @@ const startCrawler = async () => {
                     productCategoryId,
                     productId,
                     price,
-                    priceCurrencyId
-                  }
+                    priceCurrencyId,
+                  },
                 },
                 models
               );
@@ -100,7 +103,7 @@ const startCrawler = async () => {
               } else {
                 const updatedCrawler = await crawlerController.updateCrawlerSuccessProcessDate(
                   {
-                    id: _id
+                    id: _id,
                   },
                   models
                 );
