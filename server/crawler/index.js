@@ -85,6 +85,10 @@ const startCrawler = async () => {
 
               const price = await getPrice({ shopId, html });
 
+              if (!price) {
+                throw new Error('Price not gettting.');
+              }
+
               const result = await priceController.addPrice(
                 {
                   input: {
